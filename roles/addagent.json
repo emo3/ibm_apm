@@ -1,0 +1,25 @@
+# knife role from file roles/addagent.json
+# knife node run_list set {node} "role[add_apm_agent]"
+# run it:
+# knife ssh 'role:add_apm_agent' \
+# 'sudo chef-client' \
+# --ssh-user vagrant \
+# --identity-file \
+# ~/chef/cookbooks/ibm_apm/.kitchen/kitchen-vagrant/myapm-mycentoss-73/.vagrant/machines/default/virtualbox/private_key
+{
+   "name": "add_apm_agent",
+   "description": "apm agent install role.",
+   "json_class": "Chef::Role",
+   "default_attributes": {
+     "chef_client": {
+       "interval": 300,
+       "splay": 60
+     }
+   },
+   "override_attributes": {
+   },
+   "chef_type": "role",
+   "run_list": ["recipe[apm_agent::install_agent]"],
+   "env_run_lists": {
+   }
+}

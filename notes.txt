@@ -1,0 +1,19 @@
+# show node's
+knife node list
+
+# add apm recipe
+for x in myapm; do
+  knife node run_list add $x 'recipe[ibm_apm::install_apm]'
+done
+
+# show a node's details
+for x in chefsrv myapm websrv; do
+  knife node show $x
+done
+
+# run apm recipe on a node
+for x in myapm; do
+  knife ssh $x \
+"sudo chef-client -o 'recipe[ibm_apm::install_apm]'" \
+-x vagrant -P vagrant
+done
