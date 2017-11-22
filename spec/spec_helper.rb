@@ -3,5 +3,5 @@ require 'chefspec/berkshelf'
 
 RSpec.configure do |config|
   config.platform = 'redhat'
-  config.version = '7.3'
+  config.version = '7.4'
 end
