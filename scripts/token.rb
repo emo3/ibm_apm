@@ -11,13 +11,12 @@ xml_resp.xpath('//variable').each do |node|
   value = node['value']
   break
 end
-puts(value)
 
 # classpath = '/sfcots/apps/apm/decoder/bootstrap.jar:/sfcots/apps/apm/decoder/com.ibm.ws.emf.jar:/sfcots/apps/apm/decoder/com.ibm.ws.runtime.jar:/sfcots/apps/apm/decoder/ffdcSupport.jar:/sfcots/apps/apm/decoder/org.eclipse.emf.common.jar:/sfcots/apps/apm/decoder/org.eclipse.emf.ecore.jar'
 # puts ("value=#{value}")
 #  output = `/sfcots/apps/apm/kafka/bin/java -cp #{classpath} com.ibm.ws.security.util.PasswordDecoder #{value}`
 #  decodedpw = output.match(/decoded password == "(.*)"/)[1]
-decodedpw = 'XiJvOnpCSFVkQERPeFtge3I2Mko1KX'
+decodedpw = 'W2Q7M2M7dSc7JSRmSypcfiJRY0BtUU'
 
 uri = URI.parse('https://myapm:8099/oidc/endpoint/OP/token')
 request = Net::HTTP::Post.new(uri)
@@ -42,7 +41,6 @@ end
 if response.is_a?(Net::HTTPSuccess)
   token = JSON.parse(response.body)
   $access_token = token['access_token']
-  puts($access_token)
 else
   $access_token = 'ERROR'
 end

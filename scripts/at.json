@@ -1,0 +1,31 @@
+{
+"configuration":{
+  "payload":{
+    "formulaElements":[{
+      "metricName":"KLZ_CPU.Timestamp",
+      "function":"*MKTIME","timeDelta":{
+        "unit":"Hours",
+        "delta":"3",
+        "operator":"+"
+      },
+      "threshold":"1455767100000",
+      "operator":"*EQ"
+    }],
+    "severity":"Fatal",
+    "period":"011500",
+    "matchBy":"KLZCPU.CPUID",
+    "periods":3,
+    "actions":[{
+      "name":"command",
+      "commandWhen":"Y",
+      "command":"ps -ef",
+      "commandFrequency":"Y",
+      "commandWhere":"N"
+    }],
+    "operator":"*OR"
+  },
+  "type":"json"
+},
+"description":"My description",
+"label":"My_Threshold"
+}

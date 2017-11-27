@@ -4,8 +4,7 @@ require 'openssl'
 require 'json'
 require_relative 'token'
 
-# uri = URI.parse('https://myapm:9443/1.0/authzn/users')
-uri = URI.parse('https://myapm:8091/1.0/thresholdmgmt/threshold_types/itm_private_situation/thresholds')
+uri = URI.parse('https://myapm:9443/1.0/authzn/users')
 request = Net::HTTP::Get.new(uri)
 request.content_type = 'application/json'
 request['Authorization'] = "Bearer #{$access_token}"
@@ -22,14 +21,9 @@ response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
 end
 
 if response.is_a?(Net::HTTPSuccess)
-  data = JSON.parse(response.body)
-  items = data['_items']
-  items.each do |line|
-    line.each do |a, b|
-      puts '' if a.eql? '_id'
-      puts "#{a} == #{b}"
-    end
-  end
+  parsed_resp = JSON.parse(response.body)
+  # output result
+  puts "resp = #{parsed_resp}"
 else
-  puts('BAD!')
+  puts 'ERROR getuser'
 end

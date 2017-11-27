@@ -14,7 +14,7 @@ supports 'redhat'
 #
 # issues_url 'https://github.com/<insert_org_here>/ibm_apm/issues' if respond_to?(:issues_url)
 
-# The `source_url` points to the development reposiory for this cookbook.  A
+# The `source_url` points to the development repository for this cookbook.  A
 # `View Source` link will be displayed on this cookbook's page when uploaded to
 # a Supermarket.
 #
