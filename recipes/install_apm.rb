@@ -71,27 +71,26 @@ directory "#{node['apm']['package_dir']}/decoder" do
 end
 
 # Download the APM binary
-remote_file "#{node['apm']['app_dir']}/#{node['apm']['decoder_file']}" do
+remote_file "#{node['apm']['package_dir']}/decoder/#{node['apm']['decoder_file']}" do
   source "#{node['media_url']}/#{node['apm']['decoder_file']}"
   # not_if { File.exist?("#{node['apm']['package_dir']}/ccm/apm") }
-  not_if { File.exist?("#{node['apm']['app_dir']}/#{node['apm']['decoder_file']}") }
+  not_if { File.exist?("#{node['apm']['package_dir']}/decoder/#{node['apm']['decoder_file']}") }
   owner 'root'
   group 'root'
   mode '0644'
 end
 
-# untar the apm binary file
-tar_extract "#{node['apm']['app_dir']}/#{node['apm']['decoder_file']}" do
+# untar the decoder file
+tar_extract "#{node['apm']['package_dir']}/decoder/#{node['apm']['decoder_file']}" do
   action :extract_local
   target_dir "#{node['apm']['package_dir']}/decoder"
-  # creates "#{node['apm']['install_dir']}/install.sh"
+  creates
   compress_char ''
-  # not_if { File.exist?("#{node['apm']['package_dir']}/ccm/apm") }
-  # not_if { File.exist?("#{node['apm']['install_dir']}/install.sh") }
+  not_if { File.exist?("#{node['apm']['package_dir']}/decoder/set_my_env.sh") }
 end
 
-# delete the apm tar file
-file "#{node['apm']['package_dir']}/#{node['apm']['decoder_file']}" do
+# delete the decoder file
+file "#{node['apm']['package_dir']}/decoder/#{node['apm']['decoder_file']}" do
   action :delete
 end
 
