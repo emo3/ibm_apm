@@ -84,7 +84,7 @@ end
 tar_extract "#{node['apm']['package_dir']}/decoder/#{node['apm']['decoder_file']}" do
   action :extract_local
   target_dir "#{node['apm']['package_dir']}/decoder"
-  creates
+  creates "#{node['apm']['package_dir']}/decoder/set_my_env.sh"
   compress_char ''
   not_if { File.exist?("#{node['apm']['package_dir']}/decoder/set_my_env.sh") }
 end
