@@ -61,6 +61,40 @@ selinux_state 'SELinux Enforcing' do
   action :enforcing
 end
 
+# create decode dir
+directory "#{node['apm']['app_dir']}/decode" do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  recursive true
+  action :create
+end
+
+# Download the APM binary
+remote_file "#{node['apm']['app_dir']}/#{node['apm']['decode_file']}" do
+  source "#{node['media_url']}/#{node['apm']['decode_file']}"
+  # not_if { File.exist?("#{node['apm']['package_dir']}/ccm/apm") }
+  not_if { File.exist?("#{node['apm']['app_dir']}/#{node['apm']['decode_file']}") }
+  owner 'root'
+  group 'root'
+  mode '0644'
+end
+
+# untar the apm binary file
+tar_extract "#{node['apm']['app_dir']}/#{node['apm']['decode_file']}" do
+  action :extract_local
+  target_dir "#{node['apm']['app_dir']}/decode"
+  # creates "#{node['apm']['install_dir']}/install.sh"
+  compress_char ''
+  # not_if { File.exist?("#{node['apm']['package_dir']}/ccm/apm") }
+  # not_if { File.exist?("#{node['apm']['install_dir']}/install.sh") }
+end
+
+# delete the apm tar file
+file "#{node['apm']['app_dir']}/#{node['apm']['decode_file']}" do
+  action :delete
+end
+
 # print out the log file
 # results = "#{node['temp_dir']}/#{node['apm']['install_log']}"
 # ruby_block 'list_results' do
