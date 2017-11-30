@@ -61,8 +61,8 @@ selinux_state 'SELinux Enforcing' do
   action :enforcing
 end
 
-# create decode dir
-directory "#{node['apm']['app_dir']}/decode" do
+# create decoder dir
+directory "#{node['apm']['package_dir']}/decoder" do
   owner 'root'
   group 'root'
   mode '0755'
@@ -71,19 +71,19 @@ directory "#{node['apm']['app_dir']}/decode" do
 end
 
 # Download the APM binary
-remote_file "#{node['apm']['app_dir']}/#{node['apm']['decode_file']}" do
-  source "#{node['media_url']}/#{node['apm']['decode_file']}"
+remote_file "#{node['apm']['app_dir']}/#{node['apm']['decoder_file']}" do
+  source "#{node['media_url']}/#{node['apm']['decoder_file']}"
   # not_if { File.exist?("#{node['apm']['package_dir']}/ccm/apm") }
-  not_if { File.exist?("#{node['apm']['app_dir']}/#{node['apm']['decode_file']}") }
+  not_if { File.exist?("#{node['apm']['app_dir']}/#{node['apm']['decoder_file']}") }
   owner 'root'
   group 'root'
   mode '0644'
 end
 
 # untar the apm binary file
-tar_extract "#{node['apm']['app_dir']}/#{node['apm']['decode_file']}" do
+tar_extract "#{node['apm']['app_dir']}/#{node['apm']['decoder_file']}" do
   action :extract_local
-  target_dir "#{node['apm']['app_dir']}/decode"
+  target_dir "#{node['apm']['package_dir']}/decoder"
   # creates "#{node['apm']['install_dir']}/install.sh"
   compress_char ''
   # not_if { File.exist?("#{node['apm']['package_dir']}/ccm/apm") }
@@ -91,7 +91,7 @@ tar_extract "#{node['apm']['app_dir']}/#{node['apm']['decode_file']}" do
 end
 
 # delete the apm tar file
-file "#{node['apm']['app_dir']}/#{node['apm']['decode_file']}" do
+file "#{node['apm']['package_dir']}/#{node['apm']['decoder_file']}" do
   action :delete
 end
 
