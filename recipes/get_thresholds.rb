@@ -16,7 +16,7 @@ response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
   http.request(request)
 end
 if response.is_a?(Net::HTTPSuccess)
-  data = JSON(response.body)
+  data = JSON.parse(response.body)
   items = data['_items']
   items.each do |line|
     line.each do |a, b|

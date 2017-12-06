@@ -12,6 +12,7 @@ default['apm']['media_dir']   = "#{node['apm']['app_dir']}/media"
 default['apm']['install_dir'] = "#{node['apm']['media_dir']}/apm"
 default['apm']['package_dir'] = "#{node['apm']['app_dir']}/apm"
 default['apm']['depot_dir']   = "#{node['apm']['package_dir']}/ccm/depot"
+default['apm']['decoder_dir'] = "#{node['apm']['package_dir']}/decoder"
 default['apm']['rhel']        = %w(bc lsof rsync zip unzip libstdc++.i686 pam.i686 sg3_utils ksh)
 default['apm']['install_log'] = 'apm_base_install.log'
 default['apm']['access_token'] = ' '

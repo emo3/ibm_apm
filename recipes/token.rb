@@ -4,7 +4,7 @@ require 'openssl'
 require 'json'
 require 'nokogiri'
 
-xml_resp = Nokogiri::XML(File.open('/sfcots/apps/apm/wlp/usr/shared/config/clientSecrets.xml'))
+xml_resp = Nokogiri::XML(File.open("#{node['apm']['package_dir']}/wlp/usr/shared/config/clientSecrets.xml"))
 value = ''
 xml_resp.xpath('//variable').each do |xml_var|
   next unless xml_var['name'] == 'client.secret.apmui'
@@ -12,9 +12,9 @@ xml_resp.xpath('//variable').each do |xml_var|
   break
 end
 
-classpath = '/sfcots/apps/apm/decoder/bootstrap.jar:/sfcots/apps/apm/decoder/com.ibm.ws.emf.jar:/sfcots/apps/apm/decoder/com.ibm.ws.runtime.jar:/sfcots/apps/apm/decoder/ffdcSupport.jar:/sfcots/apps/apm/decoder/org.eclipse.emf.common.jar:/sfcots/apps/apm/decoder/org.eclipse.emf.ecore.jar'
+classpath = "#{node['apm']['decoder_dir']}/bootstrap.jar:#{node['apm']['decoder_dir']}/com.ibm.ws.emf.jar:#{node['apm']['decoder_dir']}/com.ibm.ws.runtime.jar:#{node['apm']['decoder_dir']}/ffdcSupport.jar:#{node['apm']['decoder_dir']}/org.eclipse.emf.common.jar:#{node['apm']['decoder_dir']}/org.eclipse.emf.ecore.jar"
 # puts ("value=#{value}")
-output = Mixlib::ShellOut.new("/sfcots/apps/apm/kafka/bin/java -cp #{classpath} com.ibm.ws.security.util.PasswordDecoder #{value}|awk '{print $8}'|sed 's/\"//g'")
+output = Mixlib::ShellOut.new("#{node['apm']['package_dir']}/kafka/bin/java -cp #{classpath} com.ibm.ws.security.util.PasswordDecoder #{value}|awk '{print $8}'|sed 's/\"//g'")
 output.run_command
 output.error!
 # decodedpw = output.stdout
@@ -27,7 +27,7 @@ request.set_form_data(
   'grant_type' => 'password',
   'client_id' => 'rpapmui',
   # 'client_secret' => decodedpw,
-  'client_secret' => 'XiJvOnpCSFVkQERPeFtge3I2Mko1KX',
+  'client_secret' => 'ZnV7T2o/ZV5HSTMraSVYMlIwdXwgKy',
   'username' => 'apmadmin',
   'password' => 'apmpass',
   'scope' => 'openid'

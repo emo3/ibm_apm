@@ -33,14 +33,6 @@ end
 
 include_recipe 'ibm_apm::logout'
 
-template '/home/db2apm/sqllib/profile.env' do
-  source 'profile.env.erb'
-  action :create
-  owner 'db2apm'
-  group 'db2iadm1'
-  mode '0664'
-end
-
 selinux_state 'SELinux Permissive' do
   action :permissive
 end
@@ -55,6 +47,14 @@ execute 'install_package' do
   user 'root'
   group 'root'
   umask '022'
+end
+
+template '/home/db2apm/sqllib/profile.env' do
+  source 'profile.env.erb'
+  action :create
+  owner 'db2apm'
+  group 'db2iadm1'
+  mode '0664'
 end
 
 selinux_state 'SELinux Enforcing' do
