@@ -14,7 +14,7 @@ default['apm']['package_dir'] = "#{node['apm']['app_dir']}/apm"
 default['apm']['depot_dir']   = "#{node['apm']['package_dir']}/ccm/depot"
 default['apm']['rhel']        = %w(bc lsof rsync zip unzip libstdc++.i686 pam.i686 sg3_utils ksh)
 default['apm']['install_log'] = 'apm_base_install.log'
-default['apm']['access_token'] = ''
+default['apm']['access_token'] = ' '
 default['media'] = [
   node['apm']['agents_lnx'],
   node['apm']['agents_pnx'],
@@ -26,4 +26,4 @@ default['media_url']          = 'http://10.1.1.30/media'
 default['temp_dir']           = '/tmp'
 default['chefsrv_ip']         = '10.1.1.10'
 default['chefsrv_name']       = 'chefsrv'
-default['chef_client'] = 'chef-13.6.0-1.el7.x86_64.rpm'
+default['chef_client']        = 'chef-13.6.0-1.el7.x86_64.rpm'

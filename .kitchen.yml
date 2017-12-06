@@ -25,8 +25,10 @@ platforms:
 suites:
   - name: myapm
     run_list:
-      - recipe[ibm_apm::install_apm]
-      - recipe[vsftpd::default]
+      - recipe[ibm_apm::get_thresholds]
+#      - recipe[ibm_apm::token]
+#      - recipe[ibm_apm::install_apm]
+#      - recipe[vsftpd::default]
     verifier:
       inspec_tests:
         - test/smoke/default
