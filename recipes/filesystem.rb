@@ -34,7 +34,7 @@ lvm_logical_volume 'lvtmp' do
   group 'rootvg'
   size '7G'
   filesystem 'xfs'
-  mount_point node['temp_dir']
+  mount_point node['apm']['temp_dir']
   # action :resize
   action :nothing
 end

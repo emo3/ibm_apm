@@ -1,4 +1,4 @@
-include_recipe '::token'
+include_recipe '::get_token'
 
 # gu_header = %w(_id _href _modifiedAt _modifiedBy label description _isDefault configuration function)
 uri = URI.parse('https://myapm:8091/1.0/thresholdmgmt/threshold_types/itm_private_situation/thresholds')

@@ -8,7 +8,7 @@ ENV['SKIP_PRECHECK'] = 'Yes'
 
 # Write answers contents to a file
 # template "#{node['temp_dir']}/#{node['apm']['answer_file']}" do
-template "#{node['temp_dir']}/#{node['apm']['myanswer_file']}" do
+template "#{node['apm']['temp_dir']}/#{node['apm']['myanswer_file']}" do
   ############
   ## prompt answers
   # continue=1 yes
@@ -40,8 +40,8 @@ end
 # install apm using answers file, write output to log
 execute 'install_package' do
   command "#{node['apm']['install_dir']}/install.sh < \
-#{node['temp_dir']}/#{node['apm']['myanswer_file']} > \
-#{node['temp_dir']}/#{node['apm']['install_log']} 2>&1"
+#{node['apm']['temp_dir']}/#{node['apm']['myanswer_file']} > \
+#{node['apm']['temp_dir']}/#{node['apm']['install_log']} 2>&1"
   cwd node['apm']['install_dir']
   not_if { File.exist?("#{node['apm']['package_dir']}/ccm/apm") }
   user 'root'
@@ -72,7 +72,7 @@ end
 
 # Download the APM binary
 remote_file "#{node['apm']['package_dir']}/decoder/#{node['apm']['decoder_file']}" do
-  source "#{node['media_url']}/#{node['apm']['decoder_file']}"
+  source "#{node['apm']['media_url']}/#{node['apm']['decoder_file']}"
   # not_if { File.exist?("#{node['apm']['package_dir']}/ccm/apm") }
   not_if { File.exist?("#{node['apm']['package_dir']}/decoder/#{node['apm']['decoder_file']}") }
   owner 'root'
@@ -95,7 +95,7 @@ file "#{node['apm']['package_dir']}/decoder/#{node['apm']['decoder_file']}" do
 end
 
 # print out the log file
-# results = "#{node['temp_dir']}/#{node['apm']['install_log']}"
+# results = "#{node['apm']['temp_dir']}/#{node['apm']['install_log']}"
 # ruby_block 'list_results' do
 #  only_if { ::File.exist?(results) }
 #  block do
@@ -118,7 +118,7 @@ directory node['apm']['media_dir'] do
 end
 
 # delete all misc temporary files created during this process
-file "#{node['temp_dir']}/#{node['apm']['myanswer_file']}" do
+file "#{node['apm']['temp_dir']}/#{node['apm']['myanswer_file']}" do
   action :delete
 end
 

@@ -56,7 +56,7 @@ end
 
 # Download the APM binary
 remote_file "#{node['apm']['media_dir']}/#{node['apm']['package']}" do
-  source "#{node['media_url']}/#{node['apm']['package']}"
+  source "#{node['apm']['media_url']}/#{node['apm']['package']}"
   not_if { File.exist?("#{node['apm']['package_dir']}/ccm/apm") }
   not_if { File.exist?("#{node['apm']['install_dir']}/install.sh") }
   owner 'root'
@@ -75,9 +75,9 @@ tar_extract "#{node['apm']['media_dir']}/#{node['apm']['package']}" do
 end
 
 # Download the Agent's media for apm
-node['media'].each do |media|
+node['apm']['media'].each do |media|
   remote_file "#{node['apm']['media_dir']}/#{media}" do
-    source "#{node['media_url']}/#{media}"
+    source "#{node['apm']['media_url']}/#{media}"
     not_if { File.exist?("#{node['apm']['depot_dir']}/#{media}") }
     owner 'root'
     group 'root'
