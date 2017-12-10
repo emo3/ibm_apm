@@ -25,5 +25,5 @@ if response.is_a?(Net::HTTPSuccess)
     end
   end
 else
-  puts('BAD!')
+  puts "BAD=#{response.code}!"
 end

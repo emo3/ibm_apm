@@ -17,21 +17,22 @@ classpath = "#{node['apm']['decoder_dir']}/bootstrap.jar:#{node['apm']['decoder_
 output = Mixlib::ShellOut.new("#{node['apm']['package_dir']}/kafka/bin/java -cp #{classpath} com.ibm.ws.security.util.PasswordDecoder #{value}|awk '{print $8}'|sed 's/\"//g'")
 output.run_command
 output.error!
-decodedpw = output.stdout
+puts "output.stdout=#{output.stdout}"
 # decodedpw = output.stdout(/decoded password == "(.*)"/)
-puts "decodedpw=#{decodedpw}"
+# puts "decodedpw=#{decodedpw}"
 
 uri = URI.parse('https://myapm:8099/oidc/endpoint/OP/token')
 request = Net::HTTP::Post.new(uri)
 request.set_form_data(
   'grant_type' => 'password',
   'client_id' => 'rpapmui',
-  # 'client_secret' => decodedpw,
-  'client_secret' => 'ZnV7T2o/ZV5HSTMraSVYMlIwdXwgKy',
+  # 'client_secret' => output.stdout,
+  'client_secret' => 'YU9qJl9bLWkgIVcofUNYZTMzKid6JX',
   'username' => 'apmadmin',
   'password' => 'apmpass',
   'scope' => 'openid'
 )
+puts "request.body=#{request.body}"
 req_options = {
   use_ssl: uri.scheme == 'https',
   verify_mode: OpenSSL::SSL::VERIFY_NONE,
@@ -43,6 +44,6 @@ if response.is_a?(Net::HTTPSuccess)
   token1 = JSON.parse(response.body)
   node.default['apm']['access_token'] = token1['access_token']
 else
-  node.default['apm']['access_token'] = 'ERROR'
+  node.default['apm']['access_token'] = response.code
+  puts "access_token=#{node['apm']['access_token']}"
 end
-# puts "access_token=#{node['apm']['access_token']}"

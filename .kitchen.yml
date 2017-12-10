@@ -25,9 +25,9 @@ platforms:
 suites:
   - name: myapm
     run_list:
-      - recipe[ibm_apm::get_thresholds]
+#      - recipe[ibm_apm::get_thresholds]
 #      - recipe[ibm_apm::get_token]
-#      - recipe[ibm_apm::install_apm]
+      - recipe[ibm_apm::install_apm]
     verifier:
       inspec_tests:
         - test/smoke/default
