@@ -11,28 +11,36 @@ xml_resp.xpath('//variable').each do |xml_var|
   value = xml_var['value']
   break
 end
-
-classpath = "#{node['apm']['decoder_dir']}/bootstrap.jar:#{node['apm']['decoder_dir']}/com.ibm.ws.emf.jar:#{node['apm']['decoder_dir']}/com.ibm.ws.runtime.jar:#{node['apm']['decoder_dir']}/ffdcSupport.jar:#{node['apm']['decoder_dir']}/org.eclipse.emf.common.jar:#{node['apm']['decoder_dir']}/org.eclipse.emf.ecore.jar"
-# puts ("value=#{value}")
-output = Mixlib::ShellOut.new("#{node['apm']['package_dir']}/kafka/bin/java -cp #{classpath} com.ibm.ws.security.util.PasswordDecoder #{value}|awk '{print $8}'|sed 's/\"//g'")
+classpath =
+  "#{node['apm']['decoder_dir']}/bootstrap.jar:"\
+  "#{node['apm']['decoder_dir']}/com.ibm.ws.emf.jar:"\
+  "#{node['apm']['decoder_dir']}/com.ibm.ws.runtime.jar:"\
+  "#{node['apm']['decoder_dir']}/ffdcSupport.jar:"\
+  "#{node['apm']['decoder_dir']}/org.eclipse.emf.common.jar:"\
+  "#{node['apm']['decoder_dir']}/org.eclipse.emf.ecore.jar"
+# puts "value=#{value}"
+cmd =
+  "#{node['apm']['package_dir']}/kafka/bin/java -cp #{classpath} "\
+  "com.ibm.ws.security.util.PasswordDecoder #{value}"\
+  "|awk '{print $8}'|sed 's/\"//g'|tr -d '\n'"
+# puts "cmd=#{cmd}="
+output = Mixlib::ShellOut.new(cmd)
 output.run_command
 output.error!
-puts "output.stdout=#{output.stdout}"
+# puts "output.stdout=#{output.stdout}="
 # decodedpw = output.stdout(/decoded password == "(.*)"/)
 # puts "decodedpw=#{decodedpw}"
-
 uri = URI.parse('https://myapm:8099/oidc/endpoint/OP/token')
 request = Net::HTTP::Post.new(uri)
 request.set_form_data(
   'grant_type' => 'password',
   'client_id' => 'rpapmui',
-  # 'client_secret' => output.stdout,
-  'client_secret' => 'ZnV7T2o/ZV5HSTMraSVYMlIwdXwgKy',
+  'client_secret' => output.stdout,
   'username' => 'apmadmin',
   'password' => 'apmpass',
   'scope' => 'openid'
 )
-puts "request.body=#{request.body}"
+# puts "request.body=#{request.body}"
 req_options = {
   use_ssl: uri.scheme == 'https',
   verify_mode: OpenSSL::SSL::VERIFY_NONE,
