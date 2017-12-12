@@ -27,7 +27,7 @@ request.set_form_data(
   'grant_type' => 'password',
   'client_id' => 'rpapmui',
   # 'client_secret' => output.stdout,
-  'client_secret' => 'YU9qJl9bLWkgIVcofUNYZTMzKid6JX',
+  'client_secret' => 'ZnV7T2o/ZV5HSTMraSVYMlIwdXwgKy',
   'username' => 'apmadmin',
   'password' => 'apmpass',
   'scope' => 'openid'
