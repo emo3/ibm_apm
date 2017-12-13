@@ -35,7 +35,7 @@ request = Net::HTTP::Post.new(uri)
 request.set_form_data(
   'grant_type' => 'password',
   'client_id' => 'rpapmui',
-  'client_secret' => output.stdout,
+  'client_secret' => output.stdout.to_s,
   'username' => 'apmadmin',
   'password' => 'apmpass',
   'scope' => 'openid'
