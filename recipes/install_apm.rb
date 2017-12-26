@@ -1,37 +1,6 @@
-include_recipe '::setchefsrv'
-include_recipe '::filesystem'
-include_recipe '::fix_apm'
-
 # turn off Prerequisite Scanner
 # comment this out until you resolve all issues
 ENV['SKIP_PRECHECK'] = 'Yes'
-
-# Write answers contents to a file
-# template "#{node['temp_dir']}/#{node['apm']['answer_file']}" do
-template "#{node['apm']['temp_dir']}/#{node['apm']['myanswer_file']}" do
-  ############
-  ## prompt answers
-  # continue=1 yes
-  # 1=change dir=Yes
-  # {full path install dir} # install dir
-  # 1=accept license
-  # change default password=2 no
-  # configure agent=1 yes
-  # {full path agent dir} # agent path
-  # accept default dir
-  # accept IP
-  # use values
-  # install DB2
-  #############
-  # source "#{node['apm']['answer_file']}.erb"
-  source "#{node['apm']['myanswer_file']}.erb"
-  action :create
-  owner 'root'
-  group 'root'
-  mode '0644'
-end
-
-include_recipe 'ibm_apm::logout'
 
 selinux_state 'SELinux Permissive' do
   action :permissive
@@ -51,7 +20,7 @@ end
 
 template '/home/db2apm/sqllib/profile.env' do
   source 'profile.env.erb'
-  action :create
+  action :nothing
   owner 'db2apm'
   group 'db2iadm1'
   mode '0664'

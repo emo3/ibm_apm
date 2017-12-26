@@ -30,7 +30,6 @@ Also, tailor the subsections below:
 - lvm
 - limits
 - selinux
-- line
 - hostsfile
 
 ## Usage
