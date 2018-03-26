@@ -16,6 +16,8 @@ execute 'install_package' do
   user 'root'
   group 'root'
   umask '022'
+  # wait for two hours, default is one hour (3600)
+  timeout 7200
 end
 
 template '/home/db2apm/sqllib/profile.env' do
