@@ -1,6 +1,7 @@
 include_recipe '::setchefsrv'
 include_recipe '::filesystem'
 include_recipe '::fix_apm'
+include_recipe '::logout'
 
 # Write answers contents to a file
 # template "#{node['temp_dir']}/#{node['apm']['answer_file']}" do
