@@ -24,6 +24,7 @@ default['apm']['media'] = [
 default['apm']['apm_ip']       = '10.1.1.20'
 default['apm']['apm_name']     = 'myapm'
 default['apm']['media_url']    = 'http://10.1.1.30/media'
+default['apm']['depot_url']    = 'http://10.1.1.30/media/depot'
 default['apm']['temp_dir']     = '/tmp'
 default['apm']['chefsrv_ip']   = '10.1.1.10'
 default['apm']['chefsrv_name'] = 'chefsrv'

@@ -77,7 +77,7 @@ end
 # Download the Agent's media for apm
 node['apm']['media'].each do |media|
   remote_file "#{node['apm']['media_dir']}/#{media}" do
-    source "#{node['apm']['media_url']}/#{media}"
+    source "#{node['apm']['depot_url']}/#{media}"
     not_if { File.exist?("#{node['apm']['depot_dir']}/#{media}") }
     owner 'root'
     group 'root'
