@@ -6,7 +6,7 @@
 require 'spec_helper'
 
 describe 'ibm_apm::install_apm' do
-  context 'When all attributes are default, on an Redhat 7.4' do
+  context 'When all attributes are default, on an Redhat 7.5' do
     let(:chef_run) do
       # for a complete list of available platforms and versions see:
       # https://github.com/customink/fauxhai/blob/master/PLATFORMS.md
