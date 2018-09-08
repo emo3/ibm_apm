@@ -7,6 +7,7 @@ default['apm']['answer_file']  = 'apm_base_install.txt'
 default['apm']['decoder_file'] = 'decoder.tar'
 default['apm']['myanswer_file'] = 'apm_base_install-my.txt'
 default['apm']['cots_dir']     = '/sfcots'
+default['apm']['lvg_name']     = 'apmvg'
 default['apm']['app_dir']      = "#{node['apm']['cots_dir']}/apps"
 default['apm']['media_dir']    = "#{node['apm']['app_dir']}/media"
 default['apm']['install_dir']  = "#{node['apm']['media_dir']}/apm"

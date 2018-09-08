@@ -14,14 +14,14 @@ lvm_physical_volume '/dev/sdb'
 
 #######################################
 # Set volume group
-lvm_volume_group 'apmvg' do
+lvm_volume_group node['apm']['lvg_name'] do
   physical_volumes ['/dev/sdb']
 end
 
 #######################################
 # Set logical volume
 lvm_logical_volume 'lvapm' do
-  group 'apmvg'
+  group node['apm']['lvg_name']
   size '60G'
   filesystem 'xfs'
   mount_point node['apm']['app_dir']
