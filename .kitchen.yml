@@ -33,4 +33,3 @@ suites:
     verifier:
       inspec_tests:
         - test/smoke/default
-    attributes:
