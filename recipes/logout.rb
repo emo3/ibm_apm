@@ -6,5 +6,6 @@ execute 'Logging out to get things to work' do
 #  ulimit -n 33000
 #  ulimit -u 8192
   logout
+#  exit
   EOM
 end
