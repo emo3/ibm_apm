@@ -32,4 +32,5 @@ suites:
       - recipe[ibm_apm::install_apm]
     verifier:
       inspec_tests:
-        - test/smoke/default
+        - test/integration/default
+    attributes:

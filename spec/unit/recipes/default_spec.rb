@@ -1,7 +1,7 @@
 # Cookbook:: ibm_apm
 # Spec:: default
 #
-# Copyright:: 2017, Ed Overton, Apache 2.0
+# Copyright:: 2019, Ed Overton, Apache 2.0
 
 require 'spec_helper'
 
