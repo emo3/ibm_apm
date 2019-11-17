@@ -1,7 +1,7 @@
 # ibm_apm Cookbook
 
-Todo: Put a description of your cookbook here. Include at a high level the
-intent and purpose of why someone would use this cookbook.
+I am no longer working on this code as of 2019-11-15.  I have moved on to check_mk.
+My Check_MK project is private for now.
 
 ## Scope
 
